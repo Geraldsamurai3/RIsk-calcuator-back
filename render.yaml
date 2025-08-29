@@ -1,0 +1,21 @@
+# Render deployment configuration
+services:
+  - type: web
+    name: alien-risk-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: alien-risk-backend
+          property: port
+      - key: FRONTEND_URL
+        value: https://your-frontend-domain.vercel.app
+    scaling:
+      minInstances: 1
+      maxInstances: 3

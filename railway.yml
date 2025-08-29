@@ -1,0 +1,19 @@
+# Railway deployment configuration
+build:
+  builder: dockerfile
+  dockerfilePath: Dockerfile
+
+deploy:
+  healthcheckPath: /health
+  healthcheckTimeout: 300
+  restartPolicyType: on_failure
+  restartPolicyMaxRetries: 3
+
+variables:
+  NODE_ENV: production
+  PORT: ${{ PORT }}
+  FRONTEND_URL: ${{ FRONTEND_URL }}
+
+resources:
+  memory: 512
+  cpu: 0.5
